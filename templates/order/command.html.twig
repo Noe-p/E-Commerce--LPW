@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande
+{% endblock %}
+
+{% block body %}
+	<div class='command'>
+		<h1>Commande confirmée</h1>
+		<h2>Commande
+			{{order.id}}
+			:
+		</h2>
+		<table class='commandTable'>
+			<tbody>
+				{% for item in allItems %}
+					<tr>
+						<td><img src={{ asset('img/' ~ item.getProduct.image)}} alt='strat'/></td>
+						<td>
+							<h2>{{item.getProduct.name}}</h2>
+						</td>
+						<td>
+							<h2>{{item.quantity}}</h2>
+
+						</td>
+						<td>
+							<h2>{{item.getProduct.price}}€</h2>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h2>Prix Total :
+			{{order.totalPrice}}€</h2>
+
+		<div class='adresse'>
+			<h2>Adresse de livraison :</h2>
+			<p>Nom :
+				{{ userAddress.lastName }}</p>
+			<p>Prénom :
+				{{ userAddress.firsName }}</p>
+			<p>Téléphone :
+				{{ userAddress.phone }}</p>
+			<p>Adresse :
+				{{ userAddress.address }}</p>
+			<p>Code Potal :
+				{{ userAddress.postalCode }}</p>
+			<p>Ville :
+				{{ userAddress.city }}</p>
+			<p>Pays :
+				{{ userAddress.country }}</p>
+		</div>
+
+	</div>
+	<style>
+		.command {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		.commandTable {
+			width: 90%;
+			border-collapse: collapse;
+			margin-bottom: 30px;
+		}
+
+		.commandTable tr {
+			border: solid 1px black;
+		}
+
+		.commandTable td {
+			text-align: center;
+		}
+
+		.commandTable form {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.commandTable input {
+			width: 100px;
+			font-size: 1.2em;
+		}
+
+		.commandTable img {
+			width: 150px;
+		}
+
+		.adresse {
+			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			border: solid 1px black;
+			border-radius: 15px;
+			width: 40%;
+			align-items: center;
+			padding: 30px;
+		}
+
+
+		.adresse p {
+			margin: 5px;
+		}
+	</style>
+{% endblock %}

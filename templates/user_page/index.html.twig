@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ app.user.firstName}}
+{% endblock %}
+
+{% block body %}
+	<div class='userPageContainer'>
+		<div class='userInfo'>
+			<div class='userpersoInfo'>
+				<h1>Vos informations</h1>
+				<div class='userCard'>
+					<p>Nom :
+						{{ app.user.lastName }}</p>
+					<p>Prénom :
+						{{ app.user.firstName }}</p>
+					<p>Email :
+						{{ app.user.email }}</p>
+					<p>Téléphone :
+						{{ app.user.phone }}</p>
+					<a href="{{ path('user_edit', {'id': app.user.id}) }}">Modifier</a>
+				</div>
+			</div>
+
+			<div class='userAddress'>
+				<h1>Adresse de livraison</h1>
+				{% for address in allAddress %}
+					<a href="{{ path('user_page', {'idAddress': address.id})}}" class='userCard'>
+						<p>Nom :
+							{{ address.lastName }}</p>
+						<p>Prénom :
+							{{ address.firsName }}</p>
+						<p>Téléphone :
+							{{ address.phone }}</p>
+						<p>Adresse :
+							{{ address.address }}</p>
+						<p>Code Potal :
+							{{ address.postalCode }}</p>
+						<p>Ville :
+							{{ address.city }}</p>
+						<p>Pays :
+							{{ address.country }}</p>
+						<a href="{{ path('customer_address_edit', {'id': address.id}) }}">Modifier</a>
+					</a>
+				{% else %}
+					<p>Aucune adresse renseignée</p>
+				{% endfor %}
+				<a class='buttonAddAddress' href="{{ path('customer_address_new')}}">Ajouter</a>
+			</div>
+		</div>
+
+		<div class='commande'>
+			<h1>Vos commandes</h1>
+			{% for command in allCommand %}
+				<div>
+					<p>Commande :
+						{{command.id}}</p>
+					<p>Effectué le :
+						{{command.date|date('Y-m-d')}}</p>
+
+					<p>Montant :
+						{{command.totalPrice}}€</p>
+				</div>
+			{% endfor %}
+
+
+		</div>
+	</div>
+
+	<style>
+		.userPageContainer {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 90%;
+		}
+
+		.userInfo {
+			display: flex;
+			justify-content: space-around;
+			width: 100%;
+			border-bottom: solid 1px black;
+			padding-bottom: 30px;
+		}
+
+		.userpersoInfo,
+		.userAddress {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+		}
+
+		.userCard {
+			border: solid 1px black;
+			border-radius: 15px;
+			width: 60%;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			transform: scale(1);
+			transition: all 0.3s;
+		}
+
+		.userCard:hover {
+			transform: scale(1.05);
+		}
+		.userCard a {
+			text-align: center;
+			width: 100%;
+		}
+
+		.userAddress .userCard {
+			margin: 20px 10px 10px;
+		}
+
+		.userpersoInfo p,
+		.userAddress p {
+			width: 100%;
+			margin: 5px;
+			text-align: left;
+		}
+
+		.buttonAddAddress {
+			margin-top: 10px;
+		}
+
+		.commande {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.commande div {
+			display: flex;
+			width: 70%;
+			justify-content: space-around;
+		}
+
+		.commande p {
+			font-size: 1.2em;
+		}
+	</style>
+{% endblock %}

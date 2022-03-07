@@ -1,0 +1,57 @@
+<div class='homeItemCard'>
+  <h2>{{title}}</h2>
+  <div>
+    <img  src={{ asset('img/' ~ picture)}} alt='strat' />
+    <p>{{description}}</p>
+    <p>{{price}}€</p>
+  </div>
+  <a href="{{ path('order_new', {'product': id}) }}">Ajouter au panier</a>
+</div>
+
+<style>
+  .homeItemCard{
+    display : flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    border: solid 1px black; 
+    width : 300px; 
+    border-radius: 15px;
+    margin: 35px;
+    transform: scale(1);
+    transition: all 0.3s;
+  }
+
+  .homeItemCard:hover{
+    transform: scale(1.05);
+  }
+
+  .homeItemCard div{
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .homeItemCard div img{
+    width:100%;
+    fit-content: cover;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .homeItemCard a {
+    padding: 20px;
+    background: white;
+    width: 260px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .homeItemCard a:hover {
+    background: black; 
+    color: white;
+  }
+</style>
