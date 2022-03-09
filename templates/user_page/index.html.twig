@@ -18,14 +18,14 @@
 						{{ app.user.email }}</p>
 					<p>Téléphone :
 						{{ app.user.phone }}</p>
-					<a href="{{ path('user_edit', {'id': app.user.id}) }}">Modifier</a>
+					<a class='submit' href="{{ path('user_edit', {'id': app.user.id}) }}">Modifier</a>
 				</div>
 			</div>
 
 			<div class='userAddress'>
 				<h1>Adresse de livraison</h1>
 				{% for address in allAddress %}
-					<a href="{{ path('user_page', {'idAddress': address.id})}}" class='userCard'>
+					<div class='userCard' href="{{ path('user_page', {'idAddress': address.id})}}">
 						<p>Nom :
 							{{ address.lastName }}</p>
 						<p>Prénom :
@@ -40,12 +40,10 @@
 							{{ address.city }}</p>
 						<p>Pays :
 							{{ address.country }}</p>
-						<a href="{{ path('customer_address_edit', {'id': address.id}) }}">Modifier</a>
-					</a>
-				{% else %}
-					<p>Aucune adresse renseignée</p>
+						<a class='submit' href="{{ path('customer_address_edit', {'id': address.id}) }}">Modifier</a>
+					</div>
 				{% endfor %}
-				<a class='buttonAddAddress' href="{{ path('customer_address_new')}}">Ajouter</a>
+				<a class='submit add' class='buttonAddAddress' href="{{ path('customer_address_new')}}">Ajouter</a>
 			</div>
 		</div>
 
@@ -53,7 +51,7 @@
 			<h1>Vos commandes</h1>
 			{% for command in allCommand %}
 				<div>
-					<p>Commande :
+					<p>Commande n°:
 						{{command.id}}</p>
 					<p>Effectué le :
 						{{command.date|date('Y-m-d')}}</p>
@@ -90,6 +88,17 @@
 			flex-direction: column;
 			align-items: center;
 			width: 100%;
+		}
+
+		.userCard .submit {
+			margin-top: 10px;
+			width: 100px;
+		}
+
+		.submit.add {
+			margin-top: 20px;
+			width: 200px;
+			text-align: center;
 		}
 
 		.userCard {

@@ -1,23 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Woodbrass Guitar{% endblock %}
+{% block title %}Woodbrass Guitar
+{% endblock %}
 
 {% block body %}
-<div class='main'>
-    <h1>Woodbrass Guitar</h1>
+	<div class='main'>
+		<h1>Woodbrass Guitar</h1>
 
-    <div class='filters'>
-        <a href='/'>Tous</a>
-    {% for category in categories %}
-        <a href={{"index.php?category=#{category.id}"}}>{{category.name}}</a>
-        {% else %}
-        <p>Aucune catégorie disponible.</p>
-    {% endfor %}
-    </div>
+		<div class='filters'>
+			{% if idCategory== false %}
+				<a class='isSelect' href='/'>Tous</a>
+			{% else %}
+				<a href='/'>Tous</a>
+			{% endif %}
+			{% for category in categories %}
+				{% if category.id == idCategory %}
+					<a class='isSelect' href={{"index.php?category=#{category.id}"}}>{{category.name}}</a>
+				{% else %}
+					<a href={{"index.php?category=#{category.id}"}}>{{category.name}}</a>
+				{% endif %}
+			{% else %}
+				<p>Aucune catégorie disponible.</p>
+			{% endfor %}
+		</div>
 
-    <div class='homeItemCardContainer'>
-    {% for product in products %}
-        {% include './home_page/homeItemCard.html.twig' 
+		<div class='homeItemCardContainer'>
+			{% for product in products %}
+				{% include './home_page/homeItemCard.html.twig' 
             with {
                 'id': product.id,
                 'title' : product.name, 
@@ -26,47 +35,61 @@
                 'price': product.price
             }
         %}
-    {% else %}
-        <p>Aucun article disponible en stock.</p>
-    {% endfor %}
-    </div>
+			{% else %}
+				<p>Aucun article disponible en stock.</p>
+			{% endfor %}
+		</div>
 
-</div>
+	</div>
 
-<style>
-    .main{
-        margin-top: 30px;
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        width: 90%;
-        justify-content: center;
-    }
+	<style>
+		.main {
+			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 90%;
+			justify-content: center;
+		}
 
-    .filters {
-        margin-top: 30px;
-        height: 100px;
-        width: 100%;
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        border-top: solid 1px black;
-        border-bottom: solid 1px black;
-    }
+		.filters {
+			margin-top: 30px;
+			height: 100px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-top: solid 1px black;
+			border-bottom: solid 1px black;
+		}
 
-    .filters a {
-        font-size: 1.2em;
-        padding-inline: 30px;
-    }
-    .homeItemCardContainer{
-        margin-top: 30px;
-        display: flex; 
-        justify-content: center;
-        width: 100%;
-        flex-wrap: wrap;
+		.filters a {
+			font-size: 1.2em;
+			margin-inline: 30px;
+			border: solid 1px black;
+			padding: 10px;
+			padding-inline: 20px;
+			border-radius: 50px;
+			background: white;
+			color: black;
+			transform: scale(1);
+			transition: all 0.3s;
+		}
 
-    }
-</style>
+		.filters a:hover,
+		.filters a.isSelect {
+			background: black;
+			color: white;
+			transform: scale(1.2);
+		}
+
+		.homeItemCardContainer {
+			margin-top: 30px;
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			flex-wrap: wrap;
+
+		}
+	</style>
 {% endblock %}
-
-

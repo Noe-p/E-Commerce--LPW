@@ -5,6 +5,7 @@
 
 {% block body %}
 	<div class='order'>
+		<h1>Votre panier :</h1>
 		<table class='commandTable'>
 			<tbody>
 				{% for item in commandLines %}
@@ -16,14 +17,14 @@
 						<td>
 							<form action="{{ path('commandLine_update',{ 'id': item.id})}}" method='post'>
 								<input type="number" value="{{item.quantity}}" id="quantity" name="quantity" min="1">
-								<input type="submit" value="Mettre à jour">
+								<input class='submit little' type="submit" value="Mettre à jour">
 							</form>
 						</td>
 						<td>
 							<h2>{{item.getProduct.price}}€</h2>
 						</td>
 						<td>
-							<a href="{{ path('commandLine_delete', {'commandLineId': item.id}) }}">Supprimer</a>
+							<a class='submit rm' href="{{ path('commandLine_delete', {'commandLineId': item.id}) }}">Supprimer</a>
 						</td>
 					</tr>
 				{% else %}
@@ -57,20 +58,21 @@
 								{{ address.country }}</p>
 						</a>
 					</div>
-				{% else %}
-					<p>Aucune adresse renseignée</p>
-					<a class='buttonAddAddress' href="{{ path('customer_address_new')}}">Ajouter une adresse</a>
 				{% endfor %}
+				<a class='submit' class='buttonAddAddress' href="{{ path('customer_address_new')}}">Ajouter une adresse</a>
 			</div>
 
 
 			{% if commandLines  %}
 				<h2>Total de la commande :
 					{{totalPrice}}€</h2>
-
-
-				<a class='buttonCommander' href="{{ path('order_command')}}">Commander</a>
 			{% endif %}
+			{% if allUserAddress|length != 0 and commandLines|length != 0  %}
+				<a class='buttonCommander' href="{{ path('order_command')}}">Commander</a>
+			{% else %}
+				<p style="color:brown;">Veuillez ajouter au moins un produit et une adresse pour passer votre commande</p>
+			{% endif %}
+
 		</div>
 
 		<style>
@@ -86,6 +88,8 @@
 			.commandTable {
 				width: 90%;
 				border-collapse: collapse;
+				margin-bottom: 60px;
+				margin-top: 40px;
 			}
 
 			.commandTable tr {
@@ -94,6 +98,7 @@
 
 			.commandTable td {
 				text-align: center;
+				padding: 10px;
 			}
 
 			.commandTable form {

@@ -18,8 +18,10 @@ class HomePageController extends AbstractController
     #[Route('/', name: 'home_page', methods: ['GET'])]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
+        $idCategory = false;
         //Gérer les filtres
         if ($_GET) {
+            $idCategory = $_GET["category"];
             $query = $productRepository->findBy(array('category' => $_GET["category"]));
         } else {
             $query = $productRepository->findAll();
@@ -29,6 +31,7 @@ class HomePageController extends AbstractController
             'controller_name' => 'HomePageController',
             'products' => $query,
             'categories' => $categoryRepository->findAll(),
+            'idCategory' => $idCategory,
         ]);
     }
 }

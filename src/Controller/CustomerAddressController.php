@@ -78,6 +78,6 @@ class CustomerAddressController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('customer_address_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('user_page', [], Response::HTTP_SEE_OTHER);
     }
 }

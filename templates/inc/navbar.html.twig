@@ -1,7 +1,7 @@
 <nav>
 	<ul>
 		<li>
-			<a href='/'>Accueil</a>
+			<a href="{{ path('home_page')}}">Accueil</a>
 		</li>
 		<li>
 			<a href='#'>Contact</a>
@@ -10,47 +10,44 @@
 	<ul>
 		{% if app.user %}
 			<li>
-				<a href="{{ path('order') }}">Panier</a>
+				<a href="{{ path('order') }}"><img src={{ asset('img/order.png')}} width='35' height='35' alt='panier'/></a>
 			</li>
-			<li>
-				<a href={{ path('user_page')}}>{{app.user.firstName}}</a>
-			</li>
-			<li>
-				<a href={{ path('app_logout')}}>Déconnexion</a>
-			</li>
-		{% else %}
-			<li>
-				<a href={{ path('app_login')}}>Connexion</a>
-			</li>
-		{% endif %}
-	</ul>
-</nav>
+		</a>
+	</li>
+	<li>
+		<a href={{ path('user_page')}}><img src={{ asset('img/login.png')}} width='35' height='35' alt='panier'/></a>
+	</li>
+	<li>
+		<a href={{ path('app_logout')}}>Déconnexion</a>
+	</li>
+{% else %}
+	<li>
+		<a href={{ path('app_login')}}>Connexion</a>
+	</li>
+{% endif %}</ul></nav><style>nav {
+	z-index: 9999999;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 100px;
+	position: sticky;
+	top: 0;
+	border-bottom: solid 1px black;
+	width: 100%;
+	background: black;
+}
 
-<style>
-	nav {
-		z-index: 9999999;
-		margin: 0;
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		height: 100px;
-		position: sticky;
-		top: 0;
-		border-bottom: solid 1px black;
-		width: 100%;
-		background: white;
-	}
+nav ul {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	width: 30%;
+	justify-content: space-around;
+}
 
-	nav ul {
-		margin: 0;
-		padding: 0;
-		display: flex;
-		align-items: center;
-		width: 30%;
-		justify-content: space-around;
-	}
-
-	nav a {
-		font-size: 1.5em;
-	}
-</style>
+nav a {
+	font-size: 1.3em;
+	color: white !important;
+}</style>
